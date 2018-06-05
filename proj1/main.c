@@ -7,13 +7,14 @@
 #include "nextion.h"
 #include "dht.h"
 #include <time.h>
-
+#include "weat.h"
 #define MS_30 500
 
 void Read_Serial(char *data);
 unsigned int init(void);
 void ShowTime(void);
 void Ambient(void);
+void weather (void);
 int fd;
 char Page_ID;
 
@@ -53,6 +54,7 @@ int main ()
         case 2:
                 printf("page 2\n");
                 Page_ID = 0xFF;
+                weather();
                 break;
         case 3:
                 printf("page 3\n");  
@@ -142,4 +144,19 @@ void Ambient (void)
     task_count = 6;
   }
   task_count--;
+}
+
+void weather (void)
+{
+  static char weat_task_count = 50;
+  if (weat_task_count == 50)
+  {
+    printf("weather\n");
+    weat_main();
+  }
+  else if (weat_task_count == 0)
+  {
+    weat_task_count = 51;
+  }
+  weat_task_count--;
 }
