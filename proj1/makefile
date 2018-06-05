@@ -7,9 +7,9 @@
 ################################################################################
 
 CC	=	gcc
-SRC	=	main.c nextion.c dht.c
-CFLAGS	= -Wall
-LDLIBS    = -lwiringPi -lpthread -lm
+SRC	=	main.c nextion.c dht.c weat.c jsmn.c
+CFLAGS	= -Wall -L ../../librequests/build -std=gnu99 -I ../../librequests/include
+LDLIBS    = -lwiringPi -lpthread -lm -lrequests -lcurl
 OBJS	=	$(SRC:.c=.o)
 
 ################################################################################
